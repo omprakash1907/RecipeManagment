@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 const EditRecipePage = () => {
   const { id } = useParams(); // Recipe ID from URL
   const navigate = useNavigate();
-  
+
   const [recipe, setRecipe] = useState({
     title: '',
     ingredients: '',
@@ -14,6 +14,7 @@ const EditRecipePage = () => {
     cuisineType: '',
     cookingTime: '',
   });
+  const [image, setImage] = useState(null); // State for the image file
 
   useEffect(() => {
     const loadRecipe = async () => {
@@ -33,12 +34,21 @@ const EditRecipePage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Create a new FormData object to handle file upload
+    const formData = new FormData();
+    formData.append('title', recipe.title);
+    formData.append('ingredients', recipe.ingredients.split(',').map((ingredient) => ingredient.trim())); // Convert back to array
+    formData.append('instructions', recipe.instructions);
+    formData.append('cuisineType', recipe.cuisineType);
+    formData.append('cookingTime', recipe.cookingTime);
+    if (image) {
+      formData.append('image', image); // Append the new image file
+    }
+
     try {
-      const updatedRecipe = {
-        ...recipe,
-        ingredients: recipe.ingredients.split(',').map((ingredient) => ingredient.trim()) // Convert back to array
-      };
-      await updateRecipe(id, updatedRecipe); // Update recipe via API
+      // Call the API to update the recipe with the image upload
+      await updateRecipe(id, formData); // Pass the formData object
       Swal.fire('Success', 'Recipe updated successfully!', 'success');
       navigate('/myFeed'); // Redirect to MyFeed after success
     } catch (error) {
@@ -49,6 +59,10 @@ const EditRecipePage = () => {
 
   const handleChange = (e) => {
     setRecipe({ ...recipe, [e.target.name]: e.target.value });
+  };
+
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]); // Set the selected file to the state
   };
 
   return (
@@ -112,6 +126,17 @@ const EditRecipePage = () => {
             onChange={handleChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
+          />
+        </div>
+
+        {/* Image Upload Input */}
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2">Upload Recipe Image</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
 

@@ -12,26 +12,29 @@ const CreateRecipePage = () => {
   const [instructions, setInstructions] = useState('');
   const [cuisineType, setCuisineType] = useState('');
   const [cookingTime, setCookingTime] = useState('');
-  
+  const [image, setImage] = useState(null); // State for the image file
+
   const navigate = useNavigate();
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Create a new recipe object
-    const recipeData = {
-      title,
-      ingredients: ingredients.split(','), // Split ingredients by commas
-      instructions,
-      cuisineType,
-      cookingTime: parseInt(cookingTime), // Parse cooking time to an integer
-    };
+    // Create a new FormData object to handle file upload
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('ingredients', ingredients); // Assuming backend will handle splitting
+    formData.append('instructions', instructions);
+    formData.append('cuisineType', cuisineType);
+    formData.append('cookingTime', cookingTime);
+    if (image) {
+      formData.append('image', image); // Append the image file
+    }
 
     try {
-      // Call the API to create a new recipe
-      await createRecipe(recipeData);
-      
+      // Call the API to create a new recipe with the image upload
+      await createRecipe(formData);
+
       // Show success message
       MySwal.fire({
         title: 'Recipe Created!',
@@ -42,7 +45,6 @@ const CreateRecipePage = () => {
         // Redirect to home or another page after success
         navigate('/');
       });
-
     } catch (error) {
       // Show error message if creation fails
       MySwal.fire({
@@ -125,6 +127,20 @@ const CreateRecipePage = () => {
             onChange={(e) => setCookingTime(e.target.value)}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
+          />
+        </div>
+
+        {/* Image Upload Input */}
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="image">
+            Upload Recipe Image
+          </label>
+          <input
+            id="image"
+            type="file"
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])} // Set the selected file to state
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
 

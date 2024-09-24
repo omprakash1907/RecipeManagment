@@ -52,7 +52,7 @@ const MyFeedPage = () => {
               title={recipe.title} 
               cuisineType={recipe.cuisineType} 
               cookingTime={recipe.cookingTime} 
-              imageUrl="https://via.placeholder.com/300" 
+              imageUrl={recipe.imageUrl} 
               author={recipe.author.email}
               difficulty="Easy"
               isMyFeed={true} // Indicate this is the "My Feed" page

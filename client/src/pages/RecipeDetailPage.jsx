@@ -34,9 +34,9 @@ const RecipeDetailPage = () => {
     <div className="container mx-auto p-8">
       <h1 className="text-4xl font-bold mb-4">{recipe.title}</h1>
       <img
-        src="https://via.placeholder.com/600x400" // Placeholder image
+        src={`https://recipemanagment-z7iv.onrender.com${recipe.imageUrl}`} 
         alt={recipe.title}
-        className="w-full h-64 object-cover mb-4"
+        className="w-full h-65 object-cover mb-4"
       />
       <p className="text-lg mb-4"><strong>Cuisine Type:</strong> {recipe.cuisineType}</p>
       <p className="text-lg mb-4"><strong>Cooking Time:</strong> {recipe.cookingTime} minutes</p>

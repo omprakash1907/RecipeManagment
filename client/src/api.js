@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Set the base URL for all requests
 const API = axios.create({
-  baseURL: 'http://localhost:5000/api',  // Your backend API base URL
+  baseURL: 'https://recipemanagment-z7iv.onrender.com/api',  // Your backend API base URL
 });
 
 // Add token to the request if the user is authenticated

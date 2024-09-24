@@ -26,10 +26,10 @@ const Header = () => {
       <div className="container mx-auto flex justify-between items-center">
         
         {/* Logo / Brand Name */}
-        <div className="text-white text-3xl font-bold flex items-center">
+        <Link to={'/'} className="text-white text-3xl font-bold flex items-center">
           <span className="font-bold text-4xl">Food</span>
           <span className="text-yellow-400 font-bold text-4xl">.</span>
-        </div>
+        </Link>
         
         {/* Right Side */}
         <div className="flex space-x-4">

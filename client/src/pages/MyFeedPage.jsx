@@ -23,6 +23,10 @@ const MyFeedPage = () => {
     loadMyRecipes();
   }, [email]);
 
+  const navigateHome = () => {
+    navigate('/');
+  };
+
   // Handle edit button click
   const handleEdit = (recipeId) => {
     // Navigate to the edit recipe page with the recipe ID
@@ -43,7 +47,18 @@ const MyFeedPage = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">My Feed</h2>
+      {/* Navbar at the top */}
+      <nav className="flex justify-between items-center bg-blue-500 p-4 rounded-md shadow-md mb-6">
+        <h1 className="text-white text-xl font-bold">My Recipe Feed</h1>
+        <button
+          onClick={navigateHome}
+          className="bg-white text-blue-500 font-bold py-2 px-4 rounded hover:bg-gray-200 transition"
+        >
+          Home
+        </button>
+      </nav>
+
+      <h2 className="text-2xl font-bold mb-4"></h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {recipes.length > 0 ? (
           recipes.map((recipe, index) => (

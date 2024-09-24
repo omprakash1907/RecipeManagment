@@ -13,7 +13,7 @@ const RecipeCard = ({ title, cuisineType, cookingTime, imageUrl, author, difficu
   return (
     <div className="bg-white shadow-md rounded-lg overflow-hidden">
       {/* Recipe Image */}
-      <img src={`http://localhost:5000${imageUrl}`} alt={title} className="w-full h-48 object-cover" />
+      <img src={`https://recipemanagment-z7iv.onrender.com${imageUrl}`} alt={title} className="w-full h-48 object-cover" />
       
       {/* Recipe Details */}
       <div className="p-6">

@@ -4,6 +4,8 @@ const cors = require("cors");
 const connectDB = require('./config/db');
 const authRouter = require("./routes/authRoutes");
 const recipeRoute = require("./routes/recipeRoutes");
+const path = require('path');
+
 
 const app = express();
 
@@ -11,6 +13,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const PORT = Config.PORT || 5000;
 

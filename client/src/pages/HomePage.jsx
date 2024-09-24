@@ -52,6 +52,8 @@ const HomePage = () => {
     filterRecipes();
   }, [searchTitle, selectedCuisine, recipes]);
 
+  console.log(recipes)
+
   return (
     <>
       <Banner />
@@ -106,7 +108,7 @@ const HomePage = () => {
               title={recipe.title}
               cuisineType={recipe.cuisineType}
               cookingTime={recipe.cookingTime}
-              imageUrl="https://via.placeholder.com/300" // Replace with recipe image URL if available
+              imageUrl={recipe.imageUrl} 
               author={recipe.author.email}
               difficulty="Easy"
               recipeId={recipe._id} // Pass recipe ID for detail page

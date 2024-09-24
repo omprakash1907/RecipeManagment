@@ -2,20 +2,24 @@ const Recipe = require('../models/recipeModel');
 
 const createRecipe = async (req, res) => {
     const { title, ingredients, instructions, cuisineType, cookingTime } = req.body;
+    const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
+  
     try {
-        const recipe = await Recipe.create({
-            title,
-            ingredients,
-            instructions,
-            cuisineType,
-            cookingTime,
-            author: req.userId
-        });
-        res.status(201).json(recipe);
+      const recipe = await Recipe.create({
+        title,
+        ingredients,
+        instructions,
+        cuisineType,
+        cookingTime,
+        imageUrl, // Save the image URL (file path)
+        author: req.userId
+      });
+      res.status(201).json(recipe);
     } catch (err) {
-        res.status(500).json({ message: 'Server error' });
+      res.status(500).json({ message: 'Server error: ' + err.message });
     }
-};
+  };
+  
 
 const getRecipes = async (req, res) => {
     try {
